@@ -1,4 +1,5 @@
 import React from 'react';
+import Swal from 'sweetalert2'
 
 const AddCoffee = () => {
 
@@ -24,17 +25,25 @@ const AddCoffee = () => {
             },
             body: JSON.stringify(newCoffee)
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.insertedId) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Coffee added successfully',
+                        icon: 'success',
+                        confirmButtonText: 'Cool'
+                    })
+                }
+            })
     }
     return (
         <div className='bg-[#FFFFFF] p-24'>
             <h2 className='text-5xl text-green-800  '>Add a Coffee</h2>
             <form onSubmit={handleAddCoffee}>
-            
-            {/* Name and Quantity row */}
+
+                {/* Name and Quantity row */}
                 <div className='md:flex  '>
                     <div className='md:w-1/2'>
                         <fieldset className="fieldset">
@@ -51,7 +60,7 @@ const AddCoffee = () => {
                     </div>
                 </div>
 
-                 {/* Supplier and Taste row */}
+                {/* Supplier and Taste row */}
                 <div className='md:flex  '>
                     <div className='md:w-1/2'>
                         <fieldset className="fieldset">
@@ -68,7 +77,7 @@ const AddCoffee = () => {
                     </div>
                 </div>
 
-                 {/* Category and Details row */}
+                {/* Category and Details row */}
                 <div className='md:flex  '>
                     <div className='md:w-1/2'>
                         <fieldset className="fieldset">

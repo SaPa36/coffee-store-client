@@ -2,17 +2,27 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { useLoaderData } from 'react-router-dom'
+import CoffeeCard from './components/CoffeeCard'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const coffees = useLoaderData();
 
   return (
-    <>
-      
-      <h1 className='text-6xl font-bold text-lime-600'>Vite + React</h1>
-      
-      
-    </>
+    <div>
+
+      <h1 className='text-6xl font-bold text-lime-600 text-center'>Coffeeeeee: {coffees.length}</h1>
+      <div className='grid md:grid-cols-2 gap-4 mt-6 p-10 '>
+        {
+          coffees.map(coffee =>
+
+            <CoffeeCard coffee={coffee} key={coffee._id}></CoffeeCard>)
+        }
+      </div>
+
+
+    </div>
   )
 }
 
