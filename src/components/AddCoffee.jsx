@@ -1,10 +1,25 @@
 import React from 'react';
 
 const AddCoffee = () => {
+
+    const handleAddCoffee = event => {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const quantity = form.quantity.value;
+        const supplier = form.supplier.value;
+        const taste = form.taste.value;
+        const category = form.category.value;
+        const details = form.details.value;
+        const photo = form.photo.value;
+
+        const newCoffee = { name, quantity, supplier, taste, category, details, photo };
+        console.log(newCoffee);
+    }
     return (
         <div className='bg-[#FFFFFF] p-24'>
             <h2 className='text-5xl text-green-800  '>Add a Coffee</h2>
-            <form >
+            <form onSubmit={handleAddCoffee}>
             
             {/* Name and Quantity row */}
                 <div className='md:flex  '>
