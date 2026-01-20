@@ -7,7 +7,9 @@ import CoffeeCard from './components/CoffeeCard'
 
 function App() {
 
-  const coffees = useLoaderData();
+  const loadedCoffees = useLoaderData();
+
+  const [coffees, setCoffees] = useState(loadedCoffees);
 
   return (
     <div>
@@ -17,7 +19,12 @@ function App() {
         {
           coffees.map(coffee =>
 
-            <CoffeeCard coffee={coffee} key={coffee._id}></CoffeeCard>)
+            <CoffeeCard 
+            coffee={coffee} 
+            key={coffee._id}
+            coffees={coffees}
+            setCoffees={setCoffees}
+            ></CoffeeCard>)
         }
       </div>
 
