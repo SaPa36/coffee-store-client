@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { AuthContext } from './providers/AuthProvider';
+import Swal from 'sweetalert2';
 
 const SignUp = () => {
 
-    const {createUser} = useContext(AuthContext);
+    const { createUser } = useContext(AuthContext);
 
     const handleSignUp = event => {
         event.preventDefault();
@@ -14,13 +15,34 @@ const SignUp = () => {
         console.log(email, password);
 
         createUser(email, password)
-        .then(result => {
-            console.log(result.user);
-            form.reset();
-        })
-        .catch(error => {
-            console.error(error);
-        });
+            .then(result => {
+                console.log(result.user);
+                form.reset();
+                const createdAt = result.user?.metadata?.creationTime;
+                const user = { email, createdAt };
+                fetch('http://localhost:3000/user', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.insertedId) {
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'Coffee added successfully',
+                                icon: 'success',
+                                confirmButtonText: 'Cool'
+                            })
+                        }
+                    })
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }
     return (
         <div>
@@ -28,7 +50,7 @@ const SignUp = () => {
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className="text-center lg:text-left">
                         <h1 className="text-5xl font-bold">Sign Up</h1>
-                        
+
                     </div>
                     <form onSubmit={handleSignUp}>
                         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
