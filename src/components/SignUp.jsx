@@ -20,7 +20,7 @@ const SignUp = () => {
                 form.reset();
                 const createdAt = result.user?.metadata?.creationTime;
                 const user = { email, createdAt };
-                fetch('http://localhost:3000/user', {
+                fetch('coffee-store-server-mwf4-8f385vin6-nur-sapas-projects.vercel.app/user', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
